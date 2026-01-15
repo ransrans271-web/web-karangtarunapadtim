@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Karang Taruna Pademangan Timur</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', sans-serif; line-height: 1.6; color: #333; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        /* Animations */
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+        @keyframes gradient { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        @keyframes wobble { 0%, 100% { transform: rotate(0deg); } 25% { transform: rotate(-2deg); } 75% { transform: rotate(2deg); } }
+        @keyframes pop { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+        @keyframes slideInLeft { from { transform: translateX(-50px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        @keyframes slideInRight { from { transform: translateX(50px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+        @keyframes glow { 0%, 100% { box-shadow: 0 10px 30px rgba(59,130,246,0.4); } 50% { box-shadow: 0 10px 50px rgba(59,130,246,0.8); } }
+        @keyframes twinkle { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @keyframes dance { 0%, 100% { transform: translateY(0) rotate(0deg); } 25% { transform: translateY(-10px) rotate(-5deg); } 75% { transform: translateY(-5px) rotate(5deg); } }
+        @keyframes wobble-small { 0%, 100% { transform: rotateZ(0deg); } 25% { transform: rotateZ(3deg); } 50% { transform: rotateZ(-3deg); } 75% { transform: rotateZ(2deg); } }
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+        
+        /* Decorative Elements */
+        .decoration { position: absolute; opacity: 0.6; animation: twinkle 3s ease-in-out infinite; }
+        .star { font-size: 1.5rem; animation: twinkle 2.5s ease-in-out infinite; }
+        .star.spin { animation: spin 10s linear infinite; }
+        .badge { display: inline-block; background: linear-gradient(135deg, #fbbf24, #f59e0b); color: white; padding: 6px 12px; border-radius: 20px; font-size: 0.9rem; font-weight: bold; margin-left: 8px; animation: bounce 2s ease-in-out infinite; }
+        .fun-emoji { font-size: 1.3rem; display: inline-block; animation: dance 3s ease-in-out infinite; margin: 0 5px; }
+        
+        /* Floating Decorations for Sections */
+        .floating-deco { position: absolute; opacity: 0.4; pointer-events: none; }
+        .floating-deco.deco1 { font-size: 2rem; top: 5%; left: 5%; animation: twinkle 4s ease-in-out infinite; }
+        .floating-deco.deco2 { font-size: 1.8rem; top: 10%; right: 8%; animation: wobble-small 3s ease-in-out infinite; }
+        .floating-deco.deco3 { font-size: 2.2rem; bottom: 10%; left: 3%; animation: pulse 2.5s ease-in-out infinite; }
+        .floating-deco.deco4 { font-size: 1.6rem; bottom: 15%; right: 5%; animation: twinkle 3s ease-in-out infinite; }
+        .floating-deco.deco5 { font-size: 2rem; top: 30%; left: 2%; animation: spin 8s linear infinite; }
+
+        /* Header */
+        header { background: linear-gradient(135deg, #1e3c72, #2a5298, #3b82f6); background-size: 200% 200%; animation: gradient 10s ease infinite; color: white; position: fixed; width: 100%; top: 0; z-index: 1000; box-shadow: 0 4px 20px rgba(59,130,246,0.3); }
+        .navbar { padding: 1rem 0; }
+        .navbar .container { display: flex; justify-content: space-between; align-items: center; gap: 2rem; }
+        .logo h2 { color: white; font-size: 1rem; flex-shrink: 0; }
+        .nav-menu { display: flex; list-style: none; gap: 2rem; flex-shrink: 0; }
+        .nav-menu a { color: white; text-decoration: none; padding: 8px 16px; border-radius: 20px; transition: 0.3s; font-size: 0.95rem; }
+        .nav-menu a:hover { background: rgba(255,255,255,0.2); transform: translateY(-3px); }
+
+        /* Hero */
+        .hero { background: linear-gradient(rgba(30,60,114,0.6), rgba(59,130,246,0.6)), url('hero-bg.jpg'); background-size: cover; background-position: center; color: white; padding: 180px 20px 100px; text-align: center; min-height: 600px; }
+        .hero h1 { font-size: 2.5rem; margin-bottom: 1rem; animation: fadeIn 1s; }
+        .hero h2 { font-size: 3rem; margin-bottom: 1rem; animation: fadeIn 1s 0.2s both; }
+        .hero p { font-size: 1.3rem; margin-bottom: 2rem; animation: fadeIn 1s 0.4s both; }
+        .btn { display: inline-block; background: linear-gradient(135deg, #3b82f6, #60a5fa); color: white; padding: 15px 40px; text-decoration: none; border-radius: 50px; font-weight: bold; transition: 0.3s; animation: fadeIn 1s 0.6s both, float 3s ease-in-out infinite, glow 2s ease-in-out infinite; box-shadow: 0 10px 30px rgba(59,130,246,0.4); }
+        .btn:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(59,130,246,0.6); }
+
+        /* Sections */
+        section { padding: 80px 20px; }
+        .section-title { text-align: center; font-size: 2.5rem; margin-bottom: 3rem; color: #1e3c72; position: relative; padding-bottom: 15px; }
+        .section-title::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 100px; height: 4px; background: linear-gradient(90deg, #3b82f6, #60a5fa); border-radius: 2px; }
+
+        .bg-blue { background: linear-gradient(135deg, #dbeafe, #bfdbfe); }
+        .bg-light { background: linear-gradient(135deg, #eff6ff, #dbeafe); }
+        .bg-blue2 { background: linear-gradient(135deg, #dbeafe, #93c5fd); }
+        .bg-dark { background: linear-gradient(135deg, #1e3c72, #2a5298, #3b82f6); color: white; }
+
+        /* Profile */
+        .profile-content { max-width: 800px; margin: 0 auto; text-align: center; font-size: 1.1rem; padding: 30px; background: white; border-radius: 20px; box-shadow: 0 10px 40px rgba(59,130,246,0.2); }
+
+        /* Profile Characters */
+        .profile-character { position: absolute; animation: float 3s ease-in-out infinite; opacity: 0.8; }
+        .character-left { left: 20px; top: 50%; transform: translateY(-50%); width: 260px; height: 260px; }
+        .character-right { right: 20px; top: 50%; transform: translateY(-50%) scaleX(-1); width: 260px; height: 260px; }
+        .profile-character img { width: 100%; height: 100%; object-fit: contain; }
+        /* Make white background blend into section color when removing background isn't available */
+        .remove-bg { mix-blend-mode: multiply; filter: contrast(1.02) saturate(1.02); }
+
+        #profile { position: relative; overflow: hidden; }
+
+        /* Boxes */
+        .box { background: white; padding: 40px; margin-bottom: 30px; border-radius: 20px; box-shadow: 0 10px 40px rgba(59,130,246,0.15); border-left: 5px solid #3b82f6; transition: 0.3s; animation: fadeIn 0.8s ease-out; }
+        .box:hover { transform: translateY(-10px); box-shadow: 0 20px 50px rgba(59,130,246,0.3); animation: wobble 0.5s ease-in-out; }
+        .box h3 { color: #1e3c72; font-size: 2rem; margin-bottom: 1.5rem; }
+        .box ol, .box ul { padding-left: 20px; }
+        .box li { margin-bottom: 15px; font-size: 1.05rem; }
+
+        /* Grid */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
+        .grid-item { background: linear-gradient(135deg, #eff6ff, #dbeafe); padding: 25px; border-radius: 15px; border-left: 4px solid #3b82f6; transition: 0.3s; }
+        .grid-item:hover { transform: translateX(10px) scale(1.05); background: linear-gradient(135deg, #3b82f6, #60a5fa); color: white; }
+
+        /* Highlight Grid - Full Width */
+        .grid.highlight-grid { grid-template-columns: 1fr; }
+
+        /* Cards */
+        .card { background: linear-gradient(135deg, white, #eff6ff); padding: 30px; border-radius: 20px; text-align: center; box-shadow: 0 10px 30px rgba(59,130,246,0.2); transition: 0.3s; animation: pop 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55); }
+        .card:hover { transform: translateY(-10px) scale(1.05); box-shadow: 0 20px 50px rgba(59,130,246,0.4); }
+        .card h4 { color: #3b82f6; font-size: 1.3rem; margin-bottom: 10px; }
+        .card p { font-size: 1.1rem; color: #1e3c72; font-weight: 600; }
+
+        .card2 { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(59,130,246,0.2); transition: 0.3s; border-top: 5px solid #3b82f6; }
+        .card2:hover { transform: translateY(-10px); }
+        .card2 h4 { color: #3b82f6; font-size: 1.2rem; margin-bottom: 15px; }
+
+        /* Highlight */
+        .highlight-card { background: linear-gradient(135deg, white, #eff6ff); padding: 40px 30px 30px; border-radius: 20px; box-shadow: 0 10px 40px rgba(59,130,246,0.15); position: relative; transition: 0.3s; animation: slideInLeft 0.8s ease-out; }
+        .highlight-card:nth-child(even) { animation: slideInRight 0.8s ease-out; }
+        .highlight-card:hover { transform: translateY(-15px); box-shadow: 0 25px 60px rgba(59,130,246,0.3); }
+        .highlight-num { position: absolute; top: -20px; left: 30px; background: linear-gradient(135deg, #3b82f6, #60a5fa); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; font-weight: bold; box-shadow: 0 10px 30px rgba(59,130,246,0.4); }
+        .highlight-card h3 { color: #1e3c72; font-size: 1.5rem; margin: 20px 0 15px; }
+        .highlight-card ul { padding-left: 20px; }
+        .highlight-card li { margin-bottom: 12px; }
+
+        /* Accordion */
+        .accordion { max-width: 900px; margin: 0 auto; }
+        .accordion-item { background: white; margin-bottom: 15px; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 20px rgba(59,130,246,0.15); animation: pop 0.6s ease-out; }
+        .accordion-header { background: linear-gradient(135deg, #3b82f6, #60a5fa); color: white; padding: 20px 25px; cursor: pointer; font-weight: bold; font-size: 1.1rem; position: relative; transition: 0.3s; }
+        .accordion-header::after { content: '▼'; position: absolute; right: 25px; transition: 0.3s; }
+        .accordion-item.active .accordion-header::after { transform: rotate(180deg); animation: bounce 0.5s ease-out; }
+        .accordion-header:hover { padding-left: 30px; background: linear-gradient(135deg, #60a5fa, #3b82f6); }
+        .accordion-content { padding: 25px; display: none; background: linear-gradient(135deg, #eff6ff, white); }
+        .accordion-item.active .accordion-content { display: block; }
+        .accordion-content ul { padding-left: 20px; }
+        .accordion-content li { margin-bottom: 12px; }
+
+        /* Kontak */
+        .kontak-box { background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); padding: 35px; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.2); transition: 0.3s; }
+        .kontak-box:hover { transform: translateY(-10px); background: rgba(255,255,255,0.15); }
+        .kontak-box h3 { color: white; font-size: 1.8rem; margin-bottom: 20px; border-bottom: 3px solid rgba(255,255,255,0.3); padding-bottom: 10px; display: flex; align-items: center; gap: 12px; }
+        
+        /* Telephone Icon Animation */
+        @keyframes ring { 0%, 100% { transform: rotate(0deg); } 10% { transform: rotate(-10deg); } 20% { transform: rotate(10deg); } 30% { transform: rotate(-10deg); } 40% { transform: rotate(10deg); } 50% { transform: rotate(0deg); } }
+        @keyframes pulse-ring { 0% { box-shadow: 0 0 0 0 rgba(255,255,255,0.7); } 70% { box-shadow: 0 0 0 15px rgba(255,255,255,0); } 100% { box-shadow: 0 0 0 0 rgba(255,255,255,0); } }
+        
+        .phone-icon { font-size: 1.5rem; display: inline-block; animation: ring 1.5s infinite; }
+        .phone-icon.pulse { animation: pulse-ring 1.5s infinite; }
+        .kontak-item { padding: 15px; margin-bottom: 15px; background: rgba(255,255,255,0.1); border-radius: 10px; transition: 0.3s; }
+        .kontak-item:hover { background: rgba(255,255,255,0.2); transform: translateX(10px); }
+        .kontak-item p { color: white; margin-bottom: 5px; }
+
+        footer { background: #1e3c72; color: white; text-align: center; padding: 30px 20px; position: relative; }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .character-left, .character-right { width: 220px; height: 220px; }
+            .hero h2 { font-size: 2.5rem; }
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 0 15px; }
+            
+            /* Navigation */
+            .nav-menu { flex-direction: column; gap: 0.5rem; align-items: flex-start; }
+            .nav-menu a { padding: 6px 12px; font-size: 0.9rem; }
+            .logo h2 { font-size: 1.2rem; }
+            
+            /* Hero */
+            .hero { padding: 120px 15px 60px; min-height: 400px; }
+            .hero h1 { font-size: 1.8rem; }
+            .hero h2 { font-size: 1.8rem; }
+            .hero p { font-size: 1rem; }
+            
+            /* Sections */
+            section { padding: 50px 15px; }
+            .section-title { font-size: 2rem; margin-bottom: 2rem; }
+            
+            /* Profile */
+            #profile { position: relative; }
+            .profile-character { position: static !important; transform: none !important; width: 200px; height: 200px; margin: 20px auto; opacity: 1 !important; }
+            .character-left, .character-right { position: static !important; left: auto !important; right: auto !important; top: auto !important; width: 200px !important; height: 200px !important; }
+            .character-right { transform: scaleX(-1) !important; }
+            .profile-content { font-size: 1rem; padding: 20px; }
+            
+            /* Cards */
+            .card, .card2 { padding: 20px; }
+            .card h4, .card2 h4 { font-size: 1.1rem; }
+            
+            /* Boxes */
+            .box { padding: 25px; margin-bottom: 20px; }
+            .box h3 { font-size: 1.5rem; margin-bottom: 1rem; }
+            .box li { font-size: 1rem; margin-bottom: 10px; }
+            
+            /* Grid */
+            .grid { gap: 15px; }
+            .grid-item { padding: 15px; }
+            
+            /* Highlight Cards */
+            .highlight-card { padding: 25px 20px; }
+            .highlight-num { font-size: 1.8rem; width: 50px; height: 50px; }
+            .highlight-card h3 { font-size: 1.3rem; }
+            .highlight-card ul { padding-left: 15px; }
+            
+            /* Accordion */
+            .accordion-header { padding: 12px 15px; font-size: 1rem; }
+            .accordion-content { padding: 15px; }
+            
+            /* Kontak */
+            .kontak-box { padding: 20px; }
+            .kontak-box h3 { font-size: 1.3rem; }
+            
+            /* Floating Decorations - Hide on tablet */
+            .floating-deco { font-size: 1.5rem !important; }
+            
+            /* Badge */
+            .badge { padding: 4px 8px; font-size: 0.8rem; }
+            
+            /* Button */
+            .btn { padding: 12px 30px; font-size: 1rem; }
+        }
+
+        @media (max-width: 480px) {
+            * { margin: 0; padding: 0; }
+            .container { padding: 0 20px; }
+            
+            /* Header & Navigation */
+            header { padding: 0.8rem 0; }
+            .navbar .container { flex-direction: column; align-items: flex-start; gap: 0.8rem; }
+            .nav-menu { flex-direction: row; gap: 0.5rem; flex-wrap: wrap; align-items: center; }
+            .nav-menu a { padding: 6px 10px; font-size: 0.8rem; }
+            .logo h2 { font-size: 1rem; }
+            
+            /* Hero */
+            .hero { padding: 110px 20px 60px; min-height: 380px; }
+            .hero h1 { font-size: 1.6rem; margin-bottom: 0.8rem; }
+            .hero h2 { font-size: 1.8rem; margin-bottom: 1rem; }
+            .hero p { font-size: 0.95rem; margin-bottom: 1.5rem; }
+            
+            /* Sections */
+            section { padding: 50px 20px; }
+            .section-title { font-size: 1.6rem; margin-bottom: 2rem; padding-bottom: 12px; }
+            .section-title::after { width: 80px; height: 3px; }
+            
+            /* Profile */
+            .profile-character { width: 160px; height: 160px; margin: 20px auto; }
+            .character-left, .character-right { width: 160px !important; height: 160px !important; }
+            .profile-content { font-size: 0.95rem; padding: 20px; line-height: 1.6; }
+            .profile-content p { line-height: 1.5; margin-bottom: 10px; }
+            
+            /* Cards */
+            .card, .card2 { padding: 18px; margin-bottom: 14px; }
+            .card h4, .card2 h4 { font-size: 1rem; margin-bottom: 8px; }
+            .card p, .card2 p { font-size: 0.9rem; }
+            
+            /* Boxes */
+            .box { padding: 20px; margin-bottom: 18px; border-left-width: 4px; }
+            .box h3 { font-size: 1.3rem; margin-bottom: 1rem; }
+            .box ol, .box ul { padding-left: 18px; margin-top: 0.8rem; }
+            .box li { font-size: 0.9rem; margin-bottom: 8px; line-height: 1.4; }
+            
+            /* Grid */
+            .grid { gap: 14px; }
+            .grid-item { padding: 16px; font-size: 0.9rem; line-height: 1.5; }
+            
+            /* Highlight Cards */
+            .highlight-card { padding: 18px; margin-bottom: 16px; animation: none; }
+            .highlight-card:nth-child(even) { animation: none; }
+            .highlight-num { font-size: 1.5rem; width: 45px; height: 45px; line-height: 45px; }
+            .highlight-card h3 { font-size: 1.1rem; margin-bottom: 0.8rem; }
+            .highlight-card p { font-size: 0.85rem; margin-bottom: 0.8rem; }
+            .highlight-card img { margin: 10px 0 !important; }
+            .highlight-card ul { padding-left: 14px; }
+            .highlight-card li { font-size: 0.85rem; margin-bottom: 6px; line-height: 1.4; }
+            
+            /* Accordion */
+            .accordion-header { padding: 14px 18px; font-size: 0.95rem; margin-bottom: 8px; }
+            .accordion-content { padding: 16px 18px; }
+            .accordion-content ul { padding-left: 14px; }
+            .accordion-content li { font-size: 0.85rem; margin-bottom: 6px; line-height: 1.4; }
+            
+            /* Kontak */
+            .kontak-box { padding: 18px; margin-bottom: 18px; }
+            .kontak-box h3 { font-size: 1.1rem; margin-bottom: 14px; flex-wrap: wrap; }
+            .kontak-item { padding: 12px; margin-bottom: 12px; }
+            .kontak-item p { font-size: 0.85rem; margin-bottom: 4px; }
+            
+            /* Footer */
+            footer { padding: 20px 12px; }
+            footer p { font-size: 0.9rem; line-height: 1.4; }
+            
+            /* Floating Decorations - Hide on mobile */
+            .floating-deco { display: none !important; }
+            
+            /* Badge & Emoji */
+            .badge { padding: 4px 7px; font-size: 0.75rem; margin-left: 4px; animation: none; }
+            .fun-emoji { font-size: 1.1rem; animation: none; }
+            .phone-icon { font-size: 1.3rem; }
+            
+            /* Button */
+            .btn { padding: 10px 20px; font-size: 0.85rem; animation: fadeIn 1s 0.6s both !important; }
+            .btn:hover { transform: translateY(-2px); }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="container">
+                <div class="logo"><h2>Karang Taruna Kelurahan Pademangan Timur</h2></div>
+                <ul class="nav-menu">
+                    <li><a href="#home">Beranda</a></li>
+                    <li><a href="#profile">Profil</a></li>
+                    <li><a href="#visi-misi">Visi & Misi</a></li>
+                    <li><a href="#struktur">Struktur</a></li>
+                    <li><a href="#kegiatan">Kegiatan</a></li>
+                    <li><a href="#kontak">Kontak</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Selamat Datang di</h1>
+            <h2>Karang Taruna Kelurahan Pademangan Timur</h2>
+            <p>Wadah Pengembangan dan Pemberdayaan Pemuda</p>
+            <a href="#visi-misi" class="btn">Lihat Lebih Lanjut</a>
+        </div>
+    </section>
+
+    <section id="profile" class="bg-blue">
+
+        <div class="container">
+            <h2 class="section-title">Profil Karang Taruna</h2>
+            <div class="profile-content">
+                <p>Karang Taruna Kelurahan Pademangan Timur adalah organisasi kepemudaan yang berkomitmen untuk mengembangkan potensi pemuda dan berkontribusi bagi kesejahteraan masyarakat. Kami hadir sebagai motor penggerak kegiatan sosial, ekonomi kreatif, dan pemberdayaan masyarakat di wilayah Pademangan Timur.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="visi-misi" class="bg-light" style="position: relative;">
+        <div class="floating-deco deco1">✨</div>
+        <div class="floating-deco deco2">🎯</div>
+        <div class="floating-deco deco3">⚡</div>
+        <div class="floating-deco deco4">💡</div>
+        <div class="container">
+            <h2 class="section-title">Visi & Misi</h2>
+            <div class="box">
+                <h3>🌟 Visi</h3>
+                <p>Menjadikan Karang Taruna Kelurahan Pademangan Timur sebagai wadah serta fasilitator untuk mengembangkan potensi jiwa sosial serta memiliki kualitas yang bermanfaat untuk masyarakat luas di tahun 2027.</p>
+            </div>
+            <div class="box">
+                <h3>🚀 Misi</h3>
+                <ol>
+                    <li>Menanamkan ketaqwaan kepada Tuhan Yang Maha Esa</li>
+                    <li>Menjaga keutuhan dan kesatuan Karang Taruna Kelurahan Pademangan Timur</li>
+                    <li>Menumbuhkan rasa toleransi dan jiwa korsa terhadap sesama anggota</li>
+                    <li>Mengembangkan dan mewujudkan harapan serta cita-cita pemuda/i karang taruna kelurahan pademangan timur melalui bimbingan interaksi yang dilaksanakan baik secara individual maupun kelompok</li>
+                    <li>Mengimplementasikan Adhitya Karya Mahatva Yodha dalam kehidupan sehari-hari</li>
+                    <li>Mempertahankan kebenaran dan mencegah kemungkaran</li>
+                </ol>
+            </div>
+            <div class="box">
+                <h3>Peran</h3>
+                <div class="grid">
+                    <div class="grid-item">Wadah pengembangan dan pemberdayaan pemuda</div>
+                    <div class="grid-item">Motor penggerak kegiatan sosial dan kemanusiaan</div>
+                    <div class="grid-item">Penggerak ekonomi kreatif dan kewirausahaan pemuda</div>
+                    <div class="grid-item">Mitra strategis pemerintah kelurahan</div>
+                    <div class="grid-item">Agen pencegahan masalah sosial pemuda</div>
+                    <div class="grid-item">Penggerak partisipasi dan gotong royong masyarakat</div>
+                    <div class="grid-item">Pelopor inovasi sosial dan digital</div>
+                    <div class="grid-item">Penjaga nilai budaya dan kearifan lokal</div>
+                    <div class="grid-item">Penggerak kepedulian lingkungan hidup</div>
+                    <div class="grid-item">Penyalur aspirasi dan suara pemuda</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="struktur" class="bg-blue2" style="position: relative;">
+        <div class="floating-deco deco1">🏆</div>
+        <div class="floating-deco deco2">⭐</div>
+        <div class="floating-deco deco4">👥</div>
+        <div class="floating-deco deco5">💪</div>
+        <div class="container">
+            <h2 class="section-title">Struktur Kepengurusan</h2>
+            <h3 style="text-align:center; font-size:2rem; color:#1e3c72; margin-bottom:30px;">Pengurus Inti <span class="badge">🏆 Luar Biasa!</span></h3>
+            <div class="grid">
+                <div class="card"><h4>👑 Ketua</h4><p>Anwar Fauzi</p></div>
+                <div class="card"><h4>🌟 Wakil Ketua</h4><p>Agung Arisqi F Putra</p></div>
+                <div class="card"><h4>📝 Sekretaris Umum</h4><p>Bagus Ardhiawan</p></div>
+                <div class="card"><h4>✨ Wakil Sekretaris</h4><p>Shita Kartika Zahwa</p></div>
+                <div class="card"><h4>💰 Bendahara Umum</h4><p>Nur Dian Utami</p></div>
+            </div>
+            <h3 style="text-align:center; font-size:2rem; color:#1e3c72; margin:50px 0 30px;">Seksi-Seksi <span class="badge">⚡ Tim Solid</span></h3>
+            <div class="grid">
+                <div class="card2"><h4>🙏 Seksi Kerohanian</h4><p>Miftahul Chair<br>Rafli Salim</p></div>
+                <div class="card2"><h4>📢 Seksi Humas</h4><p>Shafira Syabania<br>Dimas Algifari<br>Carudin</p></div>
+                <div class="card2"><h4>📚 Seksi Pendidikan, Pelatihan, Perempuan & Anak</h4><p>Siti Fatimah<br>Reza Aulia<br>Kyla<br>Salwa Salsabillah</p></div>
+                <div class="card2"><h4>🌱 Seksi Lingkungan Hidup</h4><p>M. Ilyas<br>Aji Febriyanto</p></div>
+                <div class="card2"><h4>❤️ Seksi Kesejahteraan Rakyat</h4><p>Karyadi Utama<br>Tiara Noviyanti<br>Putri Adelia</p></div>
+                <div class="card2"><h4>⚽ Seksi Olahraga</h4><p>Danu Pangestu<br>Angga</p></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="kegiatan" class="bg-light" style="position: relative;">
+        <div class="floating-deco deco1">🎯</div>
+        <div class="floating-deco deco3">🚀</div>
+        <div class="floating-deco deco5">💡</div>
+        <div class="container">
+            <h2 class="section-title">Highlight Kegiatan Unggulan 2026 <span class="fun-emoji">🎉</span></h2>
+            <div class="grid highlight-grid">
+                <div class="highlight-card">
+                    <div class="highlight-num">📚</div>
+                    <h3>Gerakan Beasiswa & Pendidikan Pemuda</h3>
+                    <p><strong>Penanggung Jawab:</strong> Seksi Pendidikan, Pelatihan, Perempuan & Anak</p>
+                    <img src="gerakan-beasiswa.jpg" alt="Gerakan Beasiswa & Pendidikan Pemuda" style="width: 100%; height: auto; border-radius: 10px; margin: 15px 0; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                    <ul>
+                        <li>✅ Transformasi Masa Depan - Membuka akses pendidikan tinggi bagi pemuda kurang mampu</li>
+                        <li>✅ Kemitraan Multi-Institusi - Kolaborasi dengan berbagai perguruan tinggi dan sekolah</li>
+                        <li>✅ Dampak Jangka Panjang - Investasi sumber daya manusia untuk kemajuan kelurahan</li>
+                    </ul>
+                </div>
+                <div class="highlight-card">
+                    <div class="highlight-num">🏗️</div>
+                    <h3>Revitalisasi Total Infrastruktur Pemuda</h3>
+                    <p><strong>Penanggung Jawab:</strong> Seksi Lingkungan Hidup</p>
+                    <img src="Revitalisasi-Total.jpg" alt="Revitalisasi Total" style="width: 100%; height: auto; border-radius: 10px; margin: 15px 0; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                    <ul>
+                        <li>✅ Transformasi Fisik Nyata - Perbaikan menyeluruh sarana pemuda di semua RW</li>
+                        <li>✅ Lingkungan Berkelanjutan - Menciptakan ruang hijau dan fasilitas ramah lingkungan</li>
+                    </ul>
+                </div>
+                <div class="highlight-card">
+                    <div class="highlight-num">👥</div>
+                    <h3>Kepemimpinan Generasi Maju</h3>
+                    <p><strong>Penanggung Jawab:</strong> Semua Seksi</p>
+                    <img src="generasi-maju.jpg" alt="Gerakan Beasiswa & Pendidikan Pemuda" style="width: 100%; height: auto; border-radius: 10px; margin: 15px 0; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                    <ul>
+                        <li>✅ Kaderisasi Sistematis - Membentuk 50 calon pemimpin muda berintegritas</li>
+                        <li>✅ Kurikulum Terstandarisasi - Modul kepemimpinan berbasis kompetensi nasional</li>
+                        <li>✅ Jaringan Nasional - Peluang kolaborasi dengan lembaga kepemimpinan terkemuka</li>
+                    </ul>
+                </div>
+                <div class="highlight-card">
+                    <div class="highlight-num">⚽</div>
+                    <h3>Pekan Olahraga Pemersatu Masyarakat</h3>
+                    <p><strong>Penanggung Jawab:</strong> Seksi Olahraga</p>
+                    <img src="badminton-kegiatan.jpg" alt="Pekan Olahraga" style="width: 100%; height: auto; border-radius: 10px; margin: 15px 0; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                    <ul>
+                        <li>✅ Pemersatu Multigenerasi - Menyatukan anak-anak, remaja, dewasa, dan lansia</li>
+                        <li>✅ Promosi Gaya Hidup Sehat - Kampanye kesehatan melalui olahraga massal</li>
+                        <li>✅ Event Signature Tahunan - Menjadi agenda tetap yang dinanti masyarakat</li>
+                    </ul>
+                </div>
+                <div class="highlight-card">
+                    <div class="highlight-num">🤝</div>
+                    <h3>Jembatan Aspirasi & Kolaborasi Strategis</h3>
+                    <p><strong>Penanggung Jawab:</strong> Seksi Humas</p>
+                    <img src="jembatan-aspirasi.jpg" alt="Jembatan aspirasi" style="width: 100%; height: auto; border-radius: 10px; margin: 15px 0; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                    <ul>
+                        <li>✅ Akses Pengambilan Kebijakan - Penyampaian aspirasi langsung ke eksekutif dan legislatif</li>
+                        <li>✅ Kemitraan Multi-Pihak - Jejaring dengan pemerintah, swasta, dan komunitas</li>
+                        <li>✅ Legitimasi & Pendanaan - Pengakuan resmi dan potensi dukungan dana berkelanjutan</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h2 class="section-title" style="margin-top:60px;">Program Kerja 2026 <span class="fun-emoji">💪</span></h2>
+            <div class="accordion">
+                <div class="accordion-item">
+                    <div class="accordion-header">🙏 Seksi Kerohanian</div>
+                    <div class="accordion-content">
+                        <ul>
+                            <li>Pawai Isra Mi'raj - 2026</li>
+                            <li>Pawai Obor Ramadhan - Ramadhan 2026</li>
+                            <li>Pesantren Kilat & Santunan Anak Yatim Piatu - Ramadhan 2026</li>
+                            <li>Lomba & Pawai Tahun Baru Islam 1 Muharram - 2026</li>
+                            <li>Kajian Rutin Bulanan Pemuda - Setiap bulan</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">📢 Seksi Humas</div>
+                    <div class="accordion-content">
+                        <ul> 
+                           <li>Silaturahmi dengan UKKT se-Pademangan Timur - Januari 2026</li>
+                           <li>Audiensi dengan PPK Kemayoran - 2026</li>
+                           <li>Audiensi dengan Anggota DPRD - 2026</li>
+                           <li>Audiensi dengan PT Taman Impian Jaya Ancol - 2026</li>
+                           <li>Media Sosial & Publikasi Kegiatan - Berkelanjutan</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">📚 Seksi Pendidikan, Pelatihan, Perempuan & Anak</div>
+                    <div class="accordion-content">
+                        <ul>
+                            <li>Sosialisasi Beasiswa dengan Universitas dan SMA/SMK 2026</li>
+                            <li>Pelatihan Keterampilan untuk Perempuan & Remaja Putri - 2026</li>
+                            <li>Workshop Literasi Digital untuk Pemuda - 2026</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">🌱 Seksi Lingkungan Hidup</div>
+                    <div class="accordion-content">
+                        <ul>
+                            <li>Kerja Bakti se-Kelurahan Pademangan Timur - Januari - Desember 2026</li> 
+                            <li>Peremajaan UKKT RW Kelurahan Pademangan Timur - Januari & Februari 2026</li>
+                            <li>Hari Peduli Sampah Nasional (kolaborasi Ancol) 2026</li>
+                            <li>Penghijauan & Tanam Pohon 2026</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">❤️ Seksi Kesejahteraan Rakyat</div>
+                    <div class="accordion-content">
+                        <ul>
+                            <li>Bulan Bakti Karang Taruna ke-67 (bakti sosial) - September & Oktober 2026</li> 
+                            <li>Santunan Anak yatim Piatu, Lansia & Keluarga Tidak Mampu - 2026</li>
+                            <li>Pemeriksaan Kesehatan Gratis - 2026</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">⚽ Seksi Olahraga</div>
+                    <div class="accordion-content">
+                        <ul>
+                            <li>Have Fun Badminton, Tenis Meja, Catur & Futsal - 2026</li>
+                            <li>Pekan Olahraga Karang Taruna - 2026</li>
+                            <li>Fun Run Pemuda - 2026</li>
+                         </ul>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">🚀 Kegiatan Bersama Semua Seksi</div>
+                    <div class="accordion-content">
+                        <ul>
+                            <li>Latihan Kepemimpinan Karang Taruna - 2026</li> 
+                            <li>Rapat Evaluasi & Perencanaan Triwulanan - Maret, Juni, September, Desember 2026</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="kontak" class="bg-dark" style="position: relative;">
+        <div class="floating-deco deco1">📱</div>
+        <div class="floating-deco deco2">💬</div>
+        <div class="floating-deco deco4">🎯</div>
+        <div class="container">
+            <h2 class="section-title" style="color:white;">Hubungi Kami <span class="fun-emoji">📞</span></h2>
+            <div class="grid">
+                <div class="kontak-box">
+                    <h3><span class="phone-icon pulse">☎️</span>Narahubung</h3>
+                    <div class="kontak-item"><p><strong>👤 Anwar Fauzi</strong></p><p>0896-9859-1876</p></div>
+                    <div class="kontak-item"><p><strong>👤 Dimas</strong></p><p>0877-8185-8105</p></div>
+                    <div class="kontak-item"><p><strong>👤 Ardian Ramadhani</strong></p><p>0812-9843-7997</p></div>
+                    <div class="kontak-item"><p><strong>👤 Shafira Syabania</strong></p><p>0881-0124-95882</p></div>
+                </div>
+                <div class="kontak-box">
+                    <h3><span class="phone-icon ring">📱</span>Media Sosial & Email <span class="fun-emoji">💌</span></h3>
+                    <div class="kontak-item"><p><strong>📸 Instagram:</strong> <a href="https://www.instagram.com/karangtaruna.padtim?igsh=MXg5dWRmcDI3Nmk5" target="_blank" style="color: white; text-decoration: none; font-weight: bold;">@karangtaruna.padtim</a></p></div>
+                    <div class="kontak-item"><p><strong>✉️ Email:</strong> <a href="mailto:pademangantimurkarangtaruna@gmail.com" style="color: white; text-decoration: none; font-weight: bold;">pademangantimurkarangtaruna@gmail.com</a></p></div>
+                    <div class="kontak-item"><p><strong>📺 YouTube:</strong> <a href="https://youtube.com/@karangtarunapadtimura?si=WSctfCdaOLyUcjwF" target="_blank" style="color: white; text-decoration: none; font-weight: bold;">@karangtarunapadtimura</a></p></div>
+                    <div class="kontak-item"><p><strong>🎵 TikTok:</strong> <a href="https://www.tiktok.com/@karangtaruna.padtim?_r=1&_t=ZS-930KBfg0R9j" target="_blank" style="color: white; text-decoration: none; font-weight: bold;">@karangtaruna.padtim</a></p></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer style="position: relative;">
+        <div style="position: absolute; bottom: 20%; left: 2%; font-size: 2rem; opacity: 0.3; animation: twinkle 3s ease-in-out infinite;">⭐</div>
+        <div style="position: absolute; bottom: 15%; right: 5%; font-size: 1.8rem; opacity: 0.3; animation: pulse 2s ease-in-out infinite;">✨</div>
+        <div class="container">
+            <p>&copy; 2026 Karang Taruna Kelurahan Pademangan Timur. Bersama Membangun Masa Depan Cemerlang <span style="font-size: 1.3rem;">🚀</span></p>
+        </div>
+    </footer>
+
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if(target) target.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        document.querySelectorAll('.accordion-header').forEach(h => {
+            h.addEventListener('click', function() {
+                const item = this.parentElement;
+                const active = item.classList.contains('active');
+                document.querySelectorAll('.accordion-item').forEach(i => i.classList.remove('active'));
+                if(!active) item.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
